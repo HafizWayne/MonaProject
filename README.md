@@ -1,1 +1,1 @@
-Project Mona is a repository for the  mobile development, machine learning, and cloud computing combined with each separates on different branch
+MonaProject is a repository for the  mobile development, machine learning, and cloud computing combined with each separates on different branch. mona itself is an app that focuses on financial management apps with few features like food recommendation, financial emergency, and tourism recommendation

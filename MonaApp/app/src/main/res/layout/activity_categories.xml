@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/total_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Balance: Rp 7,783,000" />
+
+    <TextView
+        android:id="@+id/total_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Expense: Rp 1,187,400" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categories_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

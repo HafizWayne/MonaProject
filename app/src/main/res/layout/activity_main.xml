@@ -1,0 +1,108 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFFFF"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/rxsny8p8sh4e"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/cr40bff003c43"
+        android:paddingTop="412dp"
+        android:paddingBottom="400dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/rf956nl47fah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="65dp"
+                android:layout_marginHorizontal="143dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/rghryusfgjuk"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="Mona"
+                        android:textColor="#029eb1"
+                        android:textSize="52.142860412597656sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/rrug9kbw2za"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. "
+                        android:textColor="#e3fef7"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:background="@drawable/cr30bff029eb1"
+                android:paddingVertical="16dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginHorizontal="111dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:textAlignment="center"
+                android:text="Log In"
+                android:onClick="onLoginClick"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:orientation="vertical">
+            </Button>
+            <Button
+                android:id="@+id/signup_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:background="@drawable/cr30bd4e3fef7"
+                android:paddingVertical="14dp"
+                android:layout_marginBottom="13dp"
+                android:layout_marginHorizontal="111dp"
+                android:clipChildren="false"
+                android:text= "Sign Up"
+                android:textStyle="bold"
+                android:onClick="onRegisterClick"
+                android:textSize="18sp"
+                android:clipToPadding="false"
+                android:orientation="vertical">
+
+            </Button>
+            <TextView
+                android:id="@+id/r4ji9r9jmizn"
+                android:textColor="#e3fef7"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Forgot Password?"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

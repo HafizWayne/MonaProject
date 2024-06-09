@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "311362772323",
+    "project_id": "mona-app-e2886",
+    "storage_bucket": "mona-app-e2886.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311362772323:android:6aba80b73d9a12fa284756",
+        "android_client_info": {
+          "package_name": "com.dicoding.monaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWB8zG5vRE4-7gmf5Hq1NuI_0A0EtGTzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

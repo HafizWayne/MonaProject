@@ -3,21 +3,22 @@
     <item
         android:id="@+id/nav_item1"
         android:icon="@mipmap/ic_launcher"
-        android:title="Item 1" />
+
+        android:title="Home" />
     <item
         android:id="@+id/nav_item2"
         android:icon="@mipmap/ic_launcher"
-        android:title="Item 2" />
+        android:title="Expenses" />
     <item
         android:id="@+id/nav_item3"
         android:icon="@mipmap/ic_launcher"
-        android:title="Item 3" />
+        android:title="Food Recommendation" />
     <item
         android:id="@+id/nav_item4"
         android:icon="@mipmap/ic_launcher"
-        android:title="Item 4" />
+        android:title="Food Recommendation" />
     <item
         android:id="@+id/nav_item5"
         android:icon="@mipmap/ic_launcher"
-        android:title="Item 5" />
+        android:title="Emergency Savings" />
 </menu>

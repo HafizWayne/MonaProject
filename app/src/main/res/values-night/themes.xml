@@ -3,5 +3,6 @@
     <style name="Base.Theme.MonaApp" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:screenOrientation">portrait</item>
     </style>
 </resources>

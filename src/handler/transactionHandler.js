@@ -3,42 +3,53 @@ const db = require('../db/database');
 const createTransactions = (req, res) => {
   const { date, credentials, category, amount, title, action } = req.body;
 
+  console.log(req.body); // Log request body for debugging
+
   if (!date || !credentials || !category || !amount || !title || !action) {
     return res.status(400).send('Missing fields');
   }
 
-  const newTransaction = { date, credentials, category, amount, title, action };
+  // Normalize action to lower case
+  const normalizedAction = action.toLowerCase();
+
+  const validActions = ['income', 'expense'];
+  if (!validActions.includes(normalizedAction)) {
+    return res.status(400).send('Invalid action');
+  }
+
+  const newTransaction = { date, credentials, category, amount, title, action: normalizedAction };
 
   db.query('INSERT INTO transactions SET ?', newTransaction, (err, results) => {
     if (err) {
       console.error('Error inserting transaction:', err);
       return res.status(500).send('Server error');
     }
-    newTransaction.id = results.insertId; // Set the ID of the new transaction from the database
 
-    // Determine the SQL query for updating user's balance
+    // Determine the update query based on the action
     let updateQuery;
-    let updateValues;
+    let updateParams;
 
-    if (action === 'income') {
+    if (normalizedAction === 'income') {
       updateQuery = 'UPDATE users SET total_balance = total_balance + ? WHERE id = ?';
-      updateValues = [amount, credentials];
-    } else if (action === 'expense') {
+      updateParams = [amount, credentials];
+    } else if (normalizedAction === 'expense') {
       updateQuery = 'UPDATE users SET total_balance = total_balance - ?, total_expense = total_expense + ? WHERE id = ?';
-      updateValues = [amount, amount, credentials];
+      updateParams = [amount, amount, credentials];
     }
 
-    if (updateQuery) {
-      db.query(updateQuery, updateValues, (updateErr) => {
-        if (updateErr) {
-          console.error('Error updating user balance:', updateErr);
-          return res.status(500).send('Server error');
-        }
-        res.status(201).send(newTransaction);
-      });
-    } else {
+    // Execute the update query
+    db.query(updateQuery, updateParams, (updateErr, updateResults) => {
+      if (updateErr) {
+        console.error('Error updating user balance:', updateErr);
+        return res.status(500).send('Server error while updating user balance');
+      }
+
+      if (updateResults.affectedRows === 0) {
+        return res.status(404).send('User not found');
+      }
+
       res.status(201).send(newTransaction);
-    }
+    });
   });
 };
 

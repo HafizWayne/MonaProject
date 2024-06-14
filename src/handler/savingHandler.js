@@ -15,12 +15,21 @@ const createSaving = (req, res) => {
       return res.status(500).send('Server error');
     }
     newSaving.id = results.insertId; // Set the ID of the new saving from the database
-    res.status(201).send(newSaving);
+
+    // Update the total_emergency in the users table
+    const updateQuery = 'UPDATE users SET total_emergency = total_emergency + ? WHERE id = ?';
+    db.query(updateQuery, [amount, credentials], (updateErr) => {
+      if (updateErr) {
+        console.error('Error updating user total_emergency:', updateErr);
+        return res.status(500).send('Server error');
+      }
+      res.status(201).send(newSaving);
+    });
   });
 };
 
 const getAllSavings = (req, res) => {
-  const query = 'SELECT * FROM savings';
+  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, amount, title FROM savings';
 
   db.query(query, (err, results) => {
     if (err) {
@@ -34,7 +43,7 @@ const getAllSavings = (req, res) => {
 const getSavingById = (req, res) => {
   const credentials = req.params.credentials;
 
-  const query = 'SELECT * FROM savings WHERE credentials = ?';
+  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, amount, title FROM savings WHERE credentials = ?';
   
   db.query(query, [credentials], (err, results) => {
     if (err) {
@@ -94,4 +103,3 @@ module.exports = {
   updateSaving,
   deleteSaving
 };
-

@@ -27,4 +27,6 @@
         android:background="@drawable/padding_nav"
         android:paddingVertical="15dp"
         app:menu="@menu/bottom_nav_menu"/>
+
+
 </RelativeLayout>

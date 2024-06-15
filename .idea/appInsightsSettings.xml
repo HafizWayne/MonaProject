@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.dicoding.monaapp" />
+                  <option name="mobileSdkAppId" value="1:311362772323:android:6aba80b73d9a12fa284756" />
+                  <option name="projectId" value="mona-app-e2886" />
+                  <option name="projectNumber" value="311362772323" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

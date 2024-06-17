@@ -17,7 +17,7 @@ const createSaving = (req, res) => {
     newSaving.id = results.insertId; // Set the ID of the new saving from the database
 
     // Update the total_emergency in the users table
-    const updateQuery = 'UPDATE users SET total_emergency = total_emergency + ? WHERE id = ?';
+    const updateQuery = 'UPDATE users SET total_emergency = total_emergency + ? WHERE credentials = ?';
     db.query(updateQuery, [amount, credentials], (updateErr) => {
       if (updateErr) {
         console.error('Error updating user total_emergency:', updateErr);

@@ -29,10 +29,10 @@ const createTransactions = (req, res) => {
     let updateParams;
 
     if (normalizedAction === 'income') {
-      updateQuery = 'UPDATE users SET total_balance = total_balance + ? WHERE id = ?';
+      updateQuery = 'UPDATE users SET total_balance = total_balance + ? WHERE credentials = ?';
       updateParams = [amount, credentials];
     } else if (normalizedAction === 'expense') {
-      updateQuery = 'UPDATE users SET total_balance = total_balance - ?, total_expense = total_expense + ? WHERE id = ?';
+      updateQuery = 'UPDATE users SET total_balance = total_balance - ?, total_expense = total_expense + ? WHERE credentials = ?';
       updateParams = [amount, amount, credentials];
     }
 

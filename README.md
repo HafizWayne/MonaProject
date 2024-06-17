@@ -44,7 +44,7 @@ http://35.240.207.177:8080/mona
 ### Use the following format for testing in Postman in the body section:
 ```json
 {
-    "id": "70",
+    "credentials": "70",
     "nama": "Faishal",
     "total_balance": 0,
     "total_expense": 0,

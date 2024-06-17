@@ -10,7 +10,7 @@ http://35.240.207.177:8080/mona
 ### Use the following format for testing in Postman in the body section:
 ```json
 {
-    "credentials": "yWwBA7zB9jXcpPD3Wx23I6EgGiG3",
+    "credentials": "1234",
     "nama": "Faishal",
     "total_balance": 0,
     "total_expense": 0,
@@ -19,7 +19,6 @@ http://35.240.207.177:8080/mona
     "total_makan": 2
 }
 ```
-
 
 ## Add the following paths for transaction data:
 - **/transaction**: To perform a POST request for saving income and expense data.
@@ -30,7 +29,7 @@ http://35.240.207.177:8080/mona
 ```json
 {
    "date": "2024-06-11",
-   "credentials": "yWwBA7zB9jXcpPD3Wx23I6EgGiG3",
+   "credentials": "1234",
    "category": "makanan",
    "amount": 50000,
    "titles": "Coba Post",
@@ -48,7 +47,7 @@ http://35.240.207.177:8080/mona
 ```json
 {
    "date": "2024-06-11",
-   "credentials": "yWwBA7zB9jXcpPD3Wx23I6EgGiG3",
+   "credentials": "1234",
    "amount": 50000,
    "title": "Coba Post"
 }

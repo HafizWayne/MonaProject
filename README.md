@@ -31,7 +31,8 @@ http://35.240.207.177:8080/mona
    "category": "makanan",
    "amount": 50000,
    "titles": "Coba Post",
-   "action": "income"
+   "action": "income",
+   "food_category": "fast food"
 }
 ```
 

@@ -1,18 +1,17 @@
 const db = require('../db/database');
 
+// Create transaction
 const createTransactions = (req, res) => {
   const { date, credentials, category, amount, title, action } = req.body;
-
-  console.log(req.body); // Log request body for debugging
 
   if (!date || !credentials || !category || !amount || !title || !action) {
     return res.status(400).send('Missing fields');
   }
 
-  // Normalize action to lower case
+  // Normalize action to lowercase for comparison
   const normalizedAction = action.toLowerCase();
-
   const validActions = ['income', 'expense'];
+
   if (!validActions.includes(normalizedAction)) {
     return res.status(400).send('Invalid action');
   }
@@ -48,23 +47,88 @@ const createTransactions = (req, res) => {
         return res.status(404).send('User not found');
       }
 
+      newTransaction.id = results.insertId;
       res.status(201).send(newTransaction);
     });
   });
 };
 
+// Get all transactions
 const getAllTransactions = (req, res) => {
   const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, category, amount, title, action FROM transactions';
 
   db.query(query, (err, results) => {
     if (err) {
+      console.error('Error fetching transactions:', err);
       return res.status(500).send('Server error');
     }
     res.status(200).json(results);
   });
 };
 
+// Get transaction by credentials
+const getTransactionById = (req, res) => {
+  const credentials = req.params.credentials;
+
+  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, category, amount, title, action FROM transactions WHERE credentials = ?';
+  
+  db.query(query, [credentials], (err, results) => {
+    if (err) {
+      console.error('Error fetching transactions:', err);
+      return res.status(500).send('Server error');
+    }
+    if (results.length === 0) {
+      return res.status(404).send('Transactions not found for the given credentials');
+    }
+    res.status(200).json(results);
+  });
+};
+
+// Update transaction
+const updateTransaction = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { date, category, amount, title, action } = req.body;
+
+  if (!date || !category || !amount || !title || !action) {
+    return res.status(400).send('Missing fields');
+  }
+
+  const query = 'UPDATE transactions SET date = ?, category = ?, amount = ?, title = ?, action = ? WHERE id = ?';
+
+  db.query(query, [date, category, amount, title, action, id], (err, results) => {
+    if (err) {
+      console.error('Error updating transaction:', err);
+      return res.status(500).send('Server error');
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).send('Transaction not found');
+    }
+    res.status(200).send({ id, date, category, amount, title, action });
+  });
+};
+
+// Delete transaction
+const deleteTransaction = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  const query = 'DELETE FROM transactions WHERE id = ?';
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error deleting transaction:', err);
+      return res.status(500).send('Server error');
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).send('Transaction not found');
+    }
+    res.status(204).send();
+  });
+};
+
 module.exports = {
   createTransactions,
-  getAllTransactions
+  getAllTransactions,
+  getTransactionById,
+  updateTransaction,
+  deleteTransaction
 };

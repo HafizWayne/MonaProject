@@ -2,9 +2,9 @@ const db = require('../db/database');
 
 // Create transaction
 const createTransactions = (req, res) => {
-  const { date, credentials, category, amount, title, action } = req.body;
+  const { date, credentials, category, amount, title, action, food_category } = req.body;
 
-  if (!date || !credentials || !category || !amount || !title || !action) {
+  if (!date || !credentials || !category || !amount || !title || !action || !food_category) {
     return res.status(400).send('Missing fields');
   }
 
@@ -16,7 +16,7 @@ const createTransactions = (req, res) => {
     return res.status(400).send('Invalid action');
   }
 
-  const newTransaction = { date, credentials, category, amount, title, action: normalizedAction };
+  const newTransaction = { date, credentials, category, amount, title, action: normalizedAction, food_category };
 
   db.query('INSERT INTO transactions SET ?', newTransaction, (err, results) => {
     if (err) {
@@ -55,7 +55,7 @@ const createTransactions = (req, res) => {
 
 // Get all transactions
 const getAllTransactions = (req, res) => {
-  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, category, amount, title, action FROM transactions';
+  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, category, amount, title, action, food_category FROM transactions';
 
   db.query(query, (err, results) => {
     if (err) {
@@ -70,7 +70,7 @@ const getAllTransactions = (req, res) => {
 const getTransactionById = (req, res) => {
   const credentials = req.params.credentials;
 
-  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, category, amount, title, action FROM transactions WHERE credentials = ?';
+  const query = 'SELECT id, DATE_FORMAT(date, "%Y-%m-%d") as date, credentials, category, amount, title, action, food_category FROM transactions WHERE credentials = ?';
   
   db.query(query, [credentials], (err, results) => {
     if (err) {
@@ -87,15 +87,15 @@ const getTransactionById = (req, res) => {
 // Update transaction
 const updateTransaction = (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const { date, category, amount, title, action } = req.body;
+  const { date, category, amount, title, action, food_category } = req.body;
 
-  if (!date || !category || !amount || !title || !action) {
+  if (!date || !category || !amount || !title || !action || !food_category) {
     return res.status(400).send('Missing fields');
   }
 
-  const query = 'UPDATE transactions SET date = ?, category = ?, amount = ?, title = ?, action = ? WHERE id = ?';
+  const query = 'UPDATE transactions SET date = ?, category = ?, amount = ?, title = ?, action = ?, food_category = ? WHERE id = ?';
 
-  db.query(query, [date, category, amount, title, action, id], (err, results) => {
+  db.query(query, [date, category, amount, title, action, food_category, id], (err, results) => {
     if (err) {
       console.error('Error updating transaction:', err);
       return res.status(500).send('Server error');
@@ -103,7 +103,7 @@ const updateTransaction = (req, res) => {
     if (results.affectedRows === 0) {
       return res.status(404).send('Transaction not found');
     }
-    res.status(200).send({ id, date, category, amount, title, action });
+    res.status(200).send({ id, date, category, amount, title, action, food_category });
   });
 };
 

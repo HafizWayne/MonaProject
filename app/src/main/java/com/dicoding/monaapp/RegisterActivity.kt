@@ -28,6 +28,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.signupButton.setOnClickListener {
             animateButton(binding.signupButton) {
                 signUp()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -74,7 +76,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun onRegisterActivityClick(view: View) {
-        val intent = Intent(this, CategoriesActivity::class.java)
+        val intent = Intent(this, Result::class.java)
         startActivity(intent)
     }
 }

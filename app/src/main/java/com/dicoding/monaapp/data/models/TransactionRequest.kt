@@ -6,5 +6,6 @@ data class TransactionRequest (
     val amount: Int,
     val action: String,
     val category: String,
+    val food_category: String,
     val title: String,
 )

@@ -10,14 +10,14 @@
         android:title="Expenses" />
     <item
         android:id="@+id/nav_item3"
-        android:icon="@drawable/baseline_fastfood_24"
-        android:title="Food Recommendation" />
+        android:icon="@drawable/baseline_account_balance_wallet_24"
+        android:title="Income" />
     <item
         android:id="@+id/nav_item4"
-        android:icon="@mipmap/ic_launcher"
-        android:title="Food Recommendation" />
+        android:icon="@drawable/baseline_fastfood_24"
+        android:title="Recommendations" />
     <item
         android:id="@+id/nav_item5"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/piggy_bank"
         android:title="Emergency Savings" />
 </menu>

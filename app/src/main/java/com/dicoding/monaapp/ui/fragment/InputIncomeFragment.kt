@@ -8,22 +8,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dicoding.monaapp.data.models.TransactionRequest
 import com.dicoding.monaapp.data.retrofit.ApiConfig
 import com.dicoding.monaapp.data.response.TransactionResponse
-import com.dicoding.monaapp.databinding.FragmentInputDataBinding
+import com.dicoding.monaapp.databinding.FragmentInputIncomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Calendar
 
-private const val TAG = "InputDataFragment"
+private const val TAG = "InputIncomeFragment"
 
-class InputDataFragment : Fragment() {
-    private var _binding: FragmentInputDataBinding? = null
+class InputIncomeFragment : Fragment() {
+    private var _binding: FragmentInputIncomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -31,7 +33,7 @@ class InputDataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentInputDataBinding.inflate(inflater, container, false)
+        _binding = FragmentInputIncomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,24 +43,57 @@ class InputDataFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val dateEditText = binding.dateInput
-        val categoryEditText = binding.categoryInput
+        val categorySpinner = binding.categoryInput
         val amountEditText = binding.amountInput
         val titleEditText = binding.titleInput
+        val foodCategorySpinner = binding.foodCategoryInput  // Added foodCategorySpinner
+
+        // Populate the main category Spinner
+        val categories = arrayOf("Salary", "Additional") // Updated categories
+        val categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = categoryAdapter
+
+        // Set initial visibility of foodCategorySpinner
+        foodCategorySpinner.visibility = View.GONE
 
         // Add DatePicker to dateEditText
         dateEditText.setOnClickListener {
             showDatePickerDialog()
         }
 
+        // Listener for categorySpinner to show/hide foodCategorySpinner
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedCategory = parent.getItemAtPosition(position).toString()
+                if (selectedCategory == "Food") {
+                    foodCategorySpinner.visibility = View.VISIBLE
+                } else {
+                    foodCategorySpinner.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
         binding.buttonSave.setOnClickListener {
             val date = dateEditText.text.toString()
             val credentials = firebaseAuth.currentUser?.uid ?: "No User ID"
             val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-            val action = "expense"
-            val category = categoryEditText.text.toString()
+            val action = "income"
+            val category = categorySpinner.selectedItem.toString()
             val title = titleEditText.text.toString()
 
-            sendUserData(date, credentials, amount, action, category, title)
+            // Determine foodCategory value based on category selection
+            val foodCategory = if (category == "Food") {
+                foodCategorySpinner.selectedItem.toString()
+            } else {
+                "" // Send empty string if category is not Food
+            }
+
+            sendUserData(date, credentials, amount, action, category,foodCategory, title)
         }
 
         addTextWatchers()
@@ -80,8 +115,8 @@ class InputDataFragment : Fragment() {
         datePickerDialog.show()
     }
 
-    private fun sendUserData(date: String, credentials: String, amount: Int, action: String, category: String, title: String) {
-        val transactionRequest = TransactionRequest(date, credentials, amount, action, category, title)
+    private fun sendUserData(date: String, credentials: String, amount: Int, action: String, category: String, title: String, foodCategory: String) {
+        val transactionRequest = TransactionRequest(date, credentials, amount, action, category, title, foodCategory)
         val service = ApiConfig.getApiService().sendTransaction(transactionRequest)
         service.enqueue(object : Callback<TransactionResponse> {
             override fun onResponse(call: Call<TransactionResponse>, response: Response<TransactionResponse>) {
@@ -120,6 +155,6 @@ class InputDataFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = InputDataFragment()
+        fun newInstance() = InputIncomeFragment()
     }
 }

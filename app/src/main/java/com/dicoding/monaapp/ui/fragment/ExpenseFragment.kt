@@ -1,5 +1,6 @@
 package com.dicoding.monaapp.ui.fragment
 
+import TransactionAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.monaapp.R
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.data.response.UserResponse
 import com.dicoding.monaapp.data.retrofit.ApiConfig
@@ -15,13 +18,17 @@ import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.NumberFormat
+import java.util.Locale
 
-private const val TAG = "CategoriesFragment"
+private const val TAG = "ExpenseFragment"
 
-class CategoriesFragment : Fragment() {
+class ExpenseFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var transactionAdapter: TransactionAdapter
+    private val transactionList = mutableListOf<TransactionResponse>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +41,21 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
+        setupRecyclerView()
         getUserData()
         getUserBalance()
+
+        binding.buttonSubmit.setOnClickListener {
+            navigateToInputExpenseFragment()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        transactionAdapter = TransactionAdapter(transactionList)
+        binding.rvTransactions.apply {
+            adapter = transactionAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun getUserData() {
@@ -49,21 +69,18 @@ class CategoriesFragment : Fragment() {
                 response: Response<List<TransactionResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val transactionList = response.body()
-                    transactionList?.let {
+                    val transactions = response.body()
+                    transactions?.let {
                         Log.d(TAG, "Received ${it.size} transactions")
-                        // Filter transactions by the logged-in user on the client-side
                         val userTransactions = it.filter { transaction ->
-                            Log.d(TAG, "Transaction credentials: ${transaction.credentials}")
-                            transaction.credentials == userId
+                            transaction.credentials == userId && transaction.action == "expense"
                         }
                         Log.d(TAG, "Filtered transactions count: ${userTransactions.size}")
 
                         if (userTransactions.isNotEmpty()) {
-                            val transaction = userTransactions[0]
-                            binding.categories2.text = transaction.title
-                            binding.dateMonth2.text = transaction.date
-                            binding.minusPrice2.text = transaction.amount.toString()
+                            transactionList.clear()
+                            transactionList.addAll(userTransactions)
+                            transactionAdapter.notifyDataSetChanged()
                         } else {
                             showToast("No data available")
                         }
@@ -88,20 +105,20 @@ class CategoriesFragment : Fragment() {
         Log.d(TAG, "User ID: $userId")
 
         val service = ApiConfig.getApiService().getUsers(userId)
-
         service.enqueue(object : Callback<UserResponse> {
-            override fun onResponse(
-                call: Call<UserResponse>,
-                response: Response<UserResponse>
-            ) {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
                     val user = response.body()
                     user?.let {
                         Log.d(TAG, "User ID: ${it.id}")
                         Log.d(TAG, "Total Balance: ${it.totalBalance}")
                         Log.d(TAG, "Total Expense: ${it.totalExpense}")
-                        binding.totalExpense.text = it.totalExpense.toString()
-                        binding.totalBalance.text = it.totalBalance.toString()
+                        val localeID = Locale("in", "ID")
+                        val formattedAmountExpense = NumberFormat.getNumberInstance(localeID).format(it.totalExpense)
+                        val formattedAmountIncome = NumberFormat.getNumberInstance(localeID).format(it.totalBalance)
+
+                        binding.totalExpense.text = "-Rp. $formattedAmountExpense"
+                        binding.totalBalance.text = "Rp. $formattedAmountIncome"
                     } ?: run {
                         showToast("User data not found")
                     }
@@ -118,8 +135,13 @@ class CategoriesFragment : Fragment() {
         })
     }
 
-
-
+    private fun navigateToInputExpenseFragment() {
+        val fragment = InputExpenseFragment()
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -133,9 +155,8 @@ class CategoriesFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CategoriesFragment().apply {
-                arguments = Bundle().apply {
-                }
+            ExpenseFragment().apply {
+                arguments = Bundle().apply {}
             }
     }
 }

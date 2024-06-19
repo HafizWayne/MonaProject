@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginBottom="5dp"
-            android:text="Full name"
+            android:text="Name"
             android:textColor="#E3FEF7"
             android:textSize="15sp" />
 
@@ -52,7 +52,9 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/input_corner"
             android:orientation="vertical"
+            android:textColorHint="@color/gray"
             android:paddingHorizontal="20dp"
+            android:hint="example"
             android:paddingVertical="10dp"></EditText>
 
         <TextView
@@ -72,48 +74,8 @@
             android:layout_marginHorizontal="36dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/input_corner"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"></EditText>
-
-        <TextView
-            android:id="@+id/rlvylhgc8nrh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginBottom="5dp"
-            android:text="Mobile Number"
-            android:textColor="#E3FEF7"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/mobilenumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="36dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/input_corner"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"></EditText>
-
-        <TextView
-            android:id="@+id/rm1a9ypanij"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginBottom="5dp"
-            android:text="Date of birth"
-            android:textColor="#E3FEF7"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/dateofbirth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="36dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/input_corner"
+            android:hint="@string/username_hint"
+            android:textColorHint="@color/gray"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"></EditText>
@@ -138,6 +100,9 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingVertical="10dp"
+            android:inputType="textPassword"
+            android:hint="@string/password_hint"
+            android:textColorHint="@color/gray"
             android:paddingLeft="20dp"
             android:paddingRight="10dp"></EditText>
 
@@ -159,6 +124,9 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/input_corner"
             android:orientation="vertical"
+            android:inputType="textPassword"
+            android:hint="@string/password_hint"
+            android:textColorHint="@color/gray"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:paddingBottom="15dp"></EditText>
@@ -174,7 +142,6 @@
             android:orientation="vertical"
             android:paddingVertical="10dp"
             android:paddingTop="10dp"
-            android:onClick="onRegisterActivityClick"
             android:text="Sign Up"
             android:textAlignment="center" />
 

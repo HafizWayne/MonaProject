@@ -4,7 +4,7 @@ const db = require('../db/database');
 const createTransactions = (req, res) => {
   const { date, credentials, category, amount, title, action, food_category } = req.body;
 
-  if (!date || !credentials || !category || !amount || !title || !action || !food_category) {
+  if (!date || !credentials || !category || !amount || !title || !action) {
     return res.status(400).send('Missing fields');
   }
 
@@ -16,8 +16,49 @@ const createTransactions = (req, res) => {
     return res.status(400).send('Invalid action');
   }
 
-  const newTransaction = { date, credentials, category, amount, title, action: normalizedAction, food_category };
+  // Allow food_category to be empty (null) or a string
+  const normalizedFoodCategory = food_category === undefined || food_category === '' ? null : food_category;
 
+  // Create transaction object
+  const newTransaction = {
+    date,
+    credentials,
+    category,
+    amount,
+    title,
+    action: normalizedAction,
+    food_category: normalizedFoodCategory
+  };
+
+  // Check the user's current balance if the action is 'expense'
+  if (normalizedAction === 'expense') {
+    const balanceQuery = 'SELECT total_balance FROM users WHERE credentials = ?';
+    db.query(balanceQuery, [credentials], (balanceErr, balanceResults) => {
+      if (balanceErr) {
+        console.error('Error fetching user balance:', balanceErr);
+        return res.status(500).send('Server error');
+      }
+
+      if (balanceResults.length === 0) {
+        return res.status(404).send('User not found');
+      }
+
+      const userBalance = balanceResults[0].total_balance;
+
+      if (userBalance < amount) {
+        return res.status(400).send('Insufficient balance');
+      }
+
+      // Proceed with inserting the transaction and updating the user's balance
+      insertTransactionAndUpdateBalance(newTransaction, res);
+    });
+  } else {
+    // For 'income' action, directly proceed with inserting the transaction and updating the user's balance
+    insertTransactionAndUpdateBalance(newTransaction, res);
+  }
+};
+
+const insertTransactionAndUpdateBalance = (newTransaction, res) => {
   db.query('INSERT INTO transactions SET ?', newTransaction, (err, results) => {
     if (err) {
       console.error('Error inserting transaction:', err);
@@ -28,12 +69,12 @@ const createTransactions = (req, res) => {
     let updateQuery;
     let updateParams;
 
-    if (normalizedAction === 'income') {
+    if (newTransaction.action === 'income') {
       updateQuery = 'UPDATE users SET total_balance = total_balance + ? WHERE credentials = ?';
-      updateParams = [amount, credentials];
-    } else if (normalizedAction === 'expense') {
+      updateParams = [newTransaction.amount, newTransaction.credentials];
+    } else if (newTransaction.action === 'expense') {
       updateQuery = 'UPDATE users SET total_balance = total_balance - ?, total_expense = total_expense + ? WHERE credentials = ?';
-      updateParams = [amount, amount, credentials];
+      updateParams = [newTransaction.amount, newTransaction.amount, newTransaction.credentials];
     }
 
     // Execute the update query
@@ -52,6 +93,8 @@ const createTransactions = (req, res) => {
     });
   });
 };
+
+
 
 // Get all transactions
 const getAllTransactions = (req, res) => {

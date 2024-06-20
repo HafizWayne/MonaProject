@@ -7,16 +7,19 @@ const userHandler = require('../handler/userHandler');
 // Savings Routes
 router.post('/saving', savingsHandler.createSaving);
 router.get('/savings', savingsHandler.getAllSavings);
-router.get('/saving/:credentials', savingsHandler.getSavingById);
-router.put('/saving/:id', savingsHandler.updateSaving);
-router.delete('/saving/:id', savingsHandler.deleteSaving);
+router.get('/savings/:credentials', savingsHandler.getSavingById);
+router.put('/savings/:id', savingsHandler.updateSaving);
+router.delete('/savings/:id', savingsHandler.deleteSaving);
 
 // Transactions Routes
 router.post('/transaction', transactionsHandler.createTransactions);
 router.get('/transactions', transactionsHandler.getAllTransactions);
+router.get('/transactions/:credentials', transactionsHandler.getTransactionById);
+router.put('/transactions/:id', transactionsHandler.updateTransaction);
+router.delete('/transactions/:id', transactionsHandler.deleteTransaction);
 
 router.post('/user', userHandler.createUsers);
 router.get('/users', userHandler.getAllUsers);
-router.get('/users/:id', userHandler.getUsersById);
+router.get('/users/:credentials', userHandler.getUsersBycredentials);
 
 module.exports = router;

@@ -7,23 +7,43 @@ const createSaving = (req, res) => {
     return res.status(400).send('Missing fields');
   }
 
-  const newSaving = { date, credentials, amount, title };
-  
-  db.query('INSERT INTO savings SET ?', newSaving, (err, results) => {
-    if (err) {
-      console.error('Error inserting saving:', err);
+  // Check the user's current balance
+  const balanceQuery = 'SELECT total_balance FROM users WHERE credentials = ?';
+  db.query(balanceQuery, [credentials], (balanceErr, balanceResults) => {
+    if (balanceErr) {
+      console.error('Error fetching user balance:', balanceErr);
       return res.status(500).send('Server error');
     }
-    newSaving.id = results.insertId; // Set the ID of the new saving from the database
 
-    // Update the total_emergency in the users table
-    const updateQuery = 'UPDATE users SET total_emergency = total_emergency + ? WHERE credentials = ?';
-    db.query(updateQuery, [amount, credentials], (updateErr) => {
-      if (updateErr) {
-        console.error('Error updating user total_emergency:', updateErr);
+    if (balanceResults.length === 0) {
+      return res.status(404).send('User not found');
+    }
+
+    const userBalance = balanceResults[0].total_balance;
+
+    if (userBalance < amount) {
+      return res.status(400).send('Insufficient balance');
+    }
+
+    const newSaving = { date, credentials, amount, title };
+    
+    // Insert the new saving entry
+    db.query('INSERT INTO savings SET ?', newSaving, (err, results) => {
+      if (err) {
+        console.error('Error inserting saving:', err);
         return res.status(500).send('Server error');
       }
-      res.status(201).send(newSaving);
+      newSaving.id = results.insertId; // Set the ID of the new saving from the database
+
+      // Update the total_emergency and total_balance in the users table
+      const updateQuery = 'UPDATE users SET total_emergency = total_emergency + ?, total_balance = total_balance - ? WHERE credentials = ?';
+      db.query(updateQuery, [amount, amount, credentials], (updateErr) => {
+        if (updateErr) {
+          console.error('Error updating user total_emergency and total_balance:', updateErr);
+          return res.status(500).send('Server error');
+        }
+        res.status(201).send(newSaving);
+      });
     });
   });
 };

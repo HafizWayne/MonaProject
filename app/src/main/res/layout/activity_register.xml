@@ -1,7 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FF003C43"
+    android:background="@color/dark_green"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,24 +10,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cr40bff003c43"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingVertical="9dp">
 
-        <TextView
-            android:id="@+id/rw3mr6wapc4a"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:text="Create Account"
-            android:textColor="#E3FEF7"
-            android:textSize="24sp" />
+            android:background="@drawable/cr40bff003c43"
+            android:paddingVertical="9dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/back_btn"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:backgroundTint="@color/dark_green"
+                app:elevation="0dp"
+                app:tint="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/create_account_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/create_account"
+                android:textStyle="bold"
+                android:textColor="#E3FEF7"
+                android:textSize="24sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/background_crop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/background_crop"
         android:orientation="vertical"
@@ -35,35 +63,36 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/r3l53cbc0jq"
+            android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginBottom="5dp"
-            android:text="Name"
+            android:text="@string/name"
             android:textColor="#E3FEF7"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/full_name"
+            android:textColorHint="@color/gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="36dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/input_corner"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_background"
             android:orientation="vertical"
-            android:textColorHint="@color/gray"
-            android:paddingHorizontal="20dp"
-            android:hint="example"
-            android:paddingVertical="10dp"></EditText>
+            android:hint="@string/example_hint"
+            android:textSize="16sp"
+            android:paddingHorizontal="34dp"
+            android:paddingVertical="15dp" />
 
         <TextView
-            android:id="@+id/rzpjvnn1d3fc"
+            android:id="@+id/email_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginBottom="5dp"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="#E3FEF7"
             android:textSize="15sp" />
 
@@ -72,21 +101,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="36dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/input_corner"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_background"
             android:hint="@string/username_hint"
             android:textColorHint="@color/gray"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"></EditText>
+            android:paddingHorizontal="34dp"
+            android:paddingVertical="15dp" />
 
         <TextView
-            android:id="@+id/rbyruqkr8bh"
+            android:id="@+id/password_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginBottom="5dp"
-            android:text="Password"
+            android:text="@string/password_text"
             android:textColor="#E3FEF7"
             android:textSize="15sp" />
 
@@ -95,24 +126,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="36dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/input_corner"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_background"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingVertical="10dp"
             android:inputType="textPassword"
             android:hint="@string/password_hint"
+            android:textSize="16sp"
             android:textColorHint="@color/gray"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"></EditText>
+            android:paddingHorizontal="34dp"
+            android:paddingVertical="15dp" />
 
         <TextView
-            android:id="@+id/r932u7h5piyj"
+            android:id="@+id/confirm_password_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginBottom="5dp"
-            android:text="Confirm Password"
+            android:text="@string/confirm_password"
             android:textColor="#E3FEF7"
             android:textSize="15sp" />
 
@@ -121,15 +152,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="36dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/input_corner"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/edit_text_background"
             android:orientation="vertical"
             android:inputType="textPassword"
             android:hint="@string/password_hint"
+            android:textSize="16sp"
             android:textColorHint="@color/gray"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:paddingBottom="15dp"></EditText>
+            android:paddingHorizontal="34dp"
+            android:paddingVertical="15dp" />
 
         <Button
             android:id="@+id/signup_button"
@@ -138,23 +169,12 @@
             android:layout_marginHorizontal="107dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_corner"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+            android:gravity="center"
+            android:textStyle="bold"
             android:paddingVertical="10dp"
-            android:paddingTop="10dp"
-            android:text="Sign Up"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/rkmv4134ctq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:text="Already have an account? Log In"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-
+            android:textSize="20sp"
+            android:text="@string/sign_up" />
 
     </LinearLayout>
+
 </LinearLayout>

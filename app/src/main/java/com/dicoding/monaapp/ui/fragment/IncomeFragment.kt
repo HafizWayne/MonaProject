@@ -1,12 +1,13 @@
 package com.dicoding.monaapp.ui.fragment
 
 import TransactionAdapter
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,6 @@ import com.dicoding.monaapp.R
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.data.response.UserResponse
 import com.dicoding.monaapp.data.retrofit.ApiConfig
-import com.dicoding.monaapp.databinding.FragmentCategoriesBinding
 import com.dicoding.monaapp.databinding.FragmentIncomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
@@ -53,8 +53,28 @@ class IncomeFragment : Fragment() {
         getUserBalance()
 
         binding.buttonSubmit.setOnClickListener {
-            navigateToInputIncomeFragment()
+            animateButton(it) {
+                navigateToInputIncomeFragment()
+            }
         }
+    }
+
+    private fun animateButton(view: View, onAnimationEnd: () -> Unit) {
+        view.isEnabled = false
+
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.button_press_anim)
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.isEnabled = true
+                onAnimationEnd()
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+
+        view.startAnimation(animation)
     }
 
     private fun navigateToInputIncomeFragment() {

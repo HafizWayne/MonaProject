@@ -52,7 +52,7 @@
             android:id="@+id/tvRecommendation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rekomendasi pengeluaran : "
+            android:text="Rekomendasi Pengeluaran : "
             android:textSize="14sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"/>

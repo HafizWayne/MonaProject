@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.monaapp.databinding.ActivityLoginBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -27,6 +28,11 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        val fabBack: FloatingActionButton = findViewById(R.id.fab_back)
+        fabBack.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.loginBtn.setOnClickListener {
             Log.d(TAG, "Login button clicked")
             animateButton(it) {
@@ -44,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun animateButton(view: View, onAnimationEnd: () -> Unit) {
         view.isEnabled = false

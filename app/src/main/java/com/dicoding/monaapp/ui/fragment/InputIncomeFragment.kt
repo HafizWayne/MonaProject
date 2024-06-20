@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -102,24 +104,44 @@ class InputIncomeFragment : Fragment() {
         }
 
         binding.buttonSave.setOnClickListener {
-            val date = dateEditText.text.toString()
-            val credentials = firebaseAuth.currentUser?.uid ?: "No User ID"
-            val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-            val action = "income"
-            val category = categorySpinner.selectedItem.toString()
-            val title = titleEditText.text.toString()
+            animateButton(it) {
+                val date = dateEditText.text.toString()
+                val credentials = firebaseAuth.currentUser?.uid ?: "No User ID"
+                val amount = amountEditText.text.toString().toIntOrNull() ?: 0
+                val action = "income"
+                val category = categorySpinner.selectedItem.toString()
+                val title = titleEditText.text.toString()
 
-            // Determine foodCategory value based on category selection
-            val foodCategory = if (category == "Food") {
-                foodCategorySpinner.selectedItem.toString()
-            } else {
-                "" // Send empty string if category is not Food
+                // Determine foodCategory value based on category selection
+                val foodCategory = if (category == "Food") {
+                    foodCategorySpinner.selectedItem.toString()
+                } else {
+                    "" // Send empty string if category is not Food
+                }
+
+                sendUserData(date, credentials, amount, action, category, foodCategory, title)
             }
-
-            sendUserData(date, credentials, amount, action, category,foodCategory, title)
         }
 
         addTextWatchers()
+    }
+
+    private fun animateButton(view: View, onAnimationEnd: () -> Unit) {
+        view.isEnabled = false
+
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.button_press_anim)
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.isEnabled = true
+                onAnimationEnd()
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+
+        view.startAnimation(animation)
     }
 
     private fun showDatePickerDialog() {

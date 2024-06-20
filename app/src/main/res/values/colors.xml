@@ -5,4 +5,6 @@
     <color name="teal">#00D09E</color>
     <color name="red">#FF0000</color>
     <color name="gray">#938C8A</color>
+    <color name="dark_green">#FF003C43</color>
+    <color name="blue_bondi">#029eb1</color>
 </resources>

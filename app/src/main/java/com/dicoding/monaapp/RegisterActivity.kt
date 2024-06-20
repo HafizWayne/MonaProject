@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.monaapp.databinding.ActivityRegisterBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
@@ -24,6 +25,11 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+
+        val fabBack: FloatingActionButton = findViewById(R.id.fab_back)
+        fabBack.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.signupButton.setOnClickListener {
             animateButton(binding.signupButton) {

@@ -36,7 +36,6 @@ class HomeAdapter(private val transactionList: List<TransactionResponse>) :
         val formattedDate: String = outputFormat.format(date)
         holder.dateMonth2.text = formattedDate
 
-        // Format the amount with thousand separators using Indonesian locale
         val localeID = Locale("in", "ID")
         val formattedAmount = NumberFormat.getNumberInstance(localeID).format(transaction.amount)
 

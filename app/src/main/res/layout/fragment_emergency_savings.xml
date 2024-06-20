@@ -95,9 +95,9 @@
                     android:id="@+id/total_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 1.000.000"
+                    android:text="@string/placeholder_money"
                     android:textColor="#F1FFF3"
-
+                    android:textStyle="bold"
                     android:textSize="22sp"/>
             </LinearLayout>
 
@@ -164,9 +164,10 @@
                     android:id="@+id/total_expense"
                     android:textColor="#3299FF"
                     android:textSize="22sp"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="-Rp 1.187.400"/>
+                    android:text="@string/placeholder_minus_money"/>
             </LinearLayout>
         </LinearLayout>
 

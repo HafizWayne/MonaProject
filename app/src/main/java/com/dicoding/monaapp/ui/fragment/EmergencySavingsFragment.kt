@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,8 +51,28 @@ class EmergencySavingsFragment : Fragment() {
         getUserBalance()
 
         binding.buttonSubmit.setOnClickListener {
-            navigateToInputIncomeFragment()
+            animateButton(it) {
+                navigateToInputIncomeFragment()
+            }
         }
+    }
+
+    private fun animateButton(view: View, onAnimationEnd: () -> Unit) {
+        view.isEnabled = false
+
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.button_press_anim)
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.isEnabled = true
+                onAnimationEnd()
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+
+        view.startAnimation(animation)
     }
 
     private fun navigateToInputIncomeFragment() {

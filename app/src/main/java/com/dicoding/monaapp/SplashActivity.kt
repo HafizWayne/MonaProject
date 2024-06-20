@@ -1,4 +1,4 @@
-package com.dicoding.monaapp.ui
+package com.dicoding.monaapp
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.monaapp.MainActivity
-import com.dicoding.monaapp.R
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

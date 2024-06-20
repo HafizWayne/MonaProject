@@ -8,10 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.dicoding.monaapp.R
 import com.dicoding.monaapp.data.models.TransactionRequest
 import com.dicoding.monaapp.data.retrofit.ApiConfig
 import com.dicoding.monaapp.data.response.TransactionResponse
@@ -103,18 +106,38 @@ class InputExpenseFragment : Fragment() {
         }
 
         binding.buttonSave.setOnClickListener {
-            val date = dateEditText.text.toString()
-            val credentials = firebaseAuth.currentUser?.uid ?: "No User ID"
-            val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-            val action = "expense"
-            val category = categorySpinner.selectedItem.toString()
-            val title = titleEditText.text.toString()
-            val foodCategory = if (category == "Food") foodCategorySpinner.selectedItem.toString() else ""
+            animateButton(it) {
+                val date = dateEditText.text.toString()
+                val credentials = firebaseAuth.currentUser?.uid ?: "No User ID"
+                val amount = amountEditText.text.toString().toIntOrNull() ?: 0
+                val action = "expense"
+                val category = categorySpinner.selectedItem.toString()
+                val title = titleEditText.text.toString()
+                val foodCategory = if (category == "Food") foodCategorySpinner.selectedItem.toString() else ""
 
-            sendUserData(date, credentials, amount, action, category, foodCategory, title)
+                sendUserData(date, credentials, amount, action, category, foodCategory, title)
+            }
         }
 
         addTextWatchers()
+    }
+
+    private fun animateButton(view: View, onAnimationEnd: () -> Unit) {
+        view.isEnabled = false
+
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.button_press_anim)
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.isEnabled = true
+                onAnimationEnd()
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+
+        view.startAnimation(animation)
     }
 
     private fun showDatePickerDialog() {

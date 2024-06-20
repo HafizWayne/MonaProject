@@ -1,187 +1,161 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#FFFFFFFF"
+    android:background="#FF003C43"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
-        android:id="@+id/r5qk390qmmj3"
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@drawable/cr40bff003c43"
-        android:paddingVertical="9dp"
-        android:fillViewport="true">
+        android:orientation="vertical"
+        android:paddingVertical="9dp">
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/rmci55gqrzwp"
+            android:textColor="#d9d9d9"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginVertical="15dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:animationCache="true"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="Add Expenses"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/r7qxqfxzeod"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_crop"
+        android:paddingTop="39dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/ri65hsie2me9"
+            android:textColor="#d9d9d9"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="66dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Date"
+            />
+        <EditText
+            android:id="@+id/date_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="18dp"
+            android:background="@drawable/cr18bd4e3fef7"
+            android:paddingStart="18dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:inputType="none"
+            android:focusable="false"
+            android:layout_marginBottom="34dp"
+            android:layout_marginHorizontal="55dp"
+            android:orientation="horizontal" />
+        <TextView
+            android:id="@+id/catgeory_input"
+            android:textColor="#d9d9d9"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="65dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Category"
+            />
+        <Spinner
+            android:id="@+id/category_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cr18bd4e3fef7"
+            android:paddingVertical="13dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginBottom="34dp"
+            android:layout_marginHorizontal="55dp"/>
+        <Spinner
+            android:id="@+id/food_category_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cr18bd4e3fef7"
+            android:paddingVertical="13dp"
+            android:paddingHorizontal="18dp"
+            android:layout_marginBottom="34dp"
+            android:layout_marginHorizontal="55dp"
+            android:visibility="gone"/> <!-- Initially hidden -->
+        <TextView
+            android:id="@+id/ro5aukd30olm"
+            android:textColor="#d9d9d9"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="65dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Amount"
+            />
+        <EditText
+            android:id="@+id/amount_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cr18bd4e3fef7"
+            android:paddingVertical="14dp"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:paddingHorizontal="10dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginHorizontal="54dp"
             android:orientation="vertical">
+        </EditText>
+        <TextView
+            android:id="@+id/rvzn6spdeklk"
+            android:textColor="#d9d9d9"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="66dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Expense Title"
+            />
+        <EditText
+            android:id="@+id/title_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cr18bd4e3fef7"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="18dp"
+            android:layout_marginBottom="15dp"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="55dp"
+            android:orientation="vertical">
+        </EditText>
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/cr30bff029eb1"
+            android:paddingVertical="12dp"
+            android:layout_marginHorizontal="130dp"
 
-            <LinearLayout
-                android:id="@+id/rezmxxrur0h"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="38dp"
-                android:layout_marginBottom="55dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            android:text="save"
+            android:orientation="vertical">
+        </Button>
 
-                <TextView
-                    android:id="@+id/rmci55gqrzwp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="20dp"
-                    android:text="Add Expenses"
-                    android:textAlignment="center"
-                    android:textColor="#d9d9d9"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/r7qxqfxzeod"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_crop"
-                android:orientation="vertical"
-                android:paddingTop="39dp">
 
-                <TextView
-                    android:id="@+id/ri65hsie2me9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="66dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Date"
-                    android:textColor="#d9d9d9"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/date_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="55dp"
-                    android:layout_marginBottom="34dp"
-                    android:background="@drawable/cr18bd4e3fef7"
-                    android:focusable="false"
-                    android:gravity="center_vertical"
-                    android:inputType="none"
-                    android:orientation="horizontal"
-                    android:padding="10dp" />
-
-                <TextView
-                    android:id="@+id/catgeory_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="65dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="Category"
-                    android:textColor="#d9d9d9"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/category_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="55dp"
-                    android:layout_marginBottom="34dp"
-                    android:animationCache="true"
-                    android:background="@drawable/cr18bd4e3fef7"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="13dp" />
-
-                <Spinner
-                    android:id="@+id/food_category_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="55dp"
-                    android:layout_marginBottom="34dp"
-                    android:background="@drawable/cr18bd4e3fef7"
-                    android:paddingHorizontal="18dp"
-                    android:paddingVertical="13dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/ro5aukd30olm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="65dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="Amount"
-                    android:textColor="#d9d9d9"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/amount_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="54dp"
-                    android:layout_marginBottom="35dp"
-                    android:background="@drawable/cr18bd4e3fef7"
-                    android:inputType="text"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="14dp"></EditText>
-
-                <TextView
-                    android:id="@+id/rvzn6spdeklk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="66dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="Expense Title"
-                    android:textColor="#d9d9d9"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/title_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="55dp"
-                    android:layout_marginBottom="57dp"
-                    android:background="@drawable/cr18bd4e3fef7"
-                    android:inputType="text"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="11dp"
-                    android:paddingVertical="14dp"></EditText>
-
-                <Button
-                    android:id="@+id/button_save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="130dp"
-                    android:layout_marginBottom="203dp"
-                    android:background="@drawable/cr30bff029eb1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-
-                    android:paddingVertical="12dp"
-                    android:text="save"></Button>
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:progressTint="@color/black"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

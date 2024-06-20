@@ -1,3 +1,5 @@
+package com.dicoding.monaapp.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,34 +11,42 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TransactionAdapter(private val transactionList: List<TransactionResponse>) :
-    RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
+class HomeAdapter(private val transactionList: List<TransactionResponse>) :
+    RecyclerView.Adapter<HomeAdapter.TransactionViewHolder>() {
 
     inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val categories2: TextView = itemView.findViewById(R.id.categories2)
-        val dateMonth2: TextView = itemView.findViewById(R.id.date_month2)
-        val minusPrice2: TextView = itemView.findViewById(R.id.minus_price2)
+        val categories2: TextView = itemView.findViewById(R.id.r7cqca9z3p4a)
+        val dateMonth2: TextView = itemView.findViewById(R.id.rnbiyd3oxc8t)
+        val minusPrice2: TextView = itemView.findViewById(R.id.r6riou9opo9)
+        val categories: TextView = itemView.findViewById(R.id.category)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_transaction, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
         return TransactionViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = transactionList[position]
         holder.categories2.text = transaction.title
+        holder.categories.text = transaction.category
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         val date: Date = inputFormat.parse(transaction.date)
         val formattedDate: String = outputFormat.format(date)
         holder.dateMonth2.text = formattedDate
 
-
         // Format the amount with thousand separators using Indonesian locale
         val localeID = Locale("in", "ID")
         val formattedAmount = NumberFormat.getNumberInstance(localeID).format(transaction.amount)
-        holder.minusPrice2.text = "-Rp $formattedAmount"
+
+        if (transaction.action == "expense") {
+            holder.minusPrice2.text = "-Rp $formattedAmount"
+            holder.minusPrice2.setTextColor(holder.itemView.context.getColor(R.color.red))
+        } else {
+            holder.minusPrice2.text = "Rp $formattedAmount"
+            holder.minusPrice2.setTextColor(holder.itemView.context.getColor(R.color.teal))
+        }
     }
 
     override fun getItemCount(): Int = transactionList.size

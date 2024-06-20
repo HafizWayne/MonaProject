@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.dicoding.monaapp.ui.fragment.EmergencySavingsFragment
 import com.dicoding.monaapp.ui.fragment.ExpenseFragment
 import com.dicoding.monaapp.ui.fragment.HomeFragment
 import com.dicoding.monaapp.ui.fragment.IncomeFragment
@@ -30,6 +31,10 @@ class HomeActivity : AppCompatActivity() {
             }
             R.id.nav_item4 -> {
                 replaceFragment(RecommendationFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_item5 -> {
+                replaceFragment(EmergencySavingsFragment())
                 return@OnNavigationItemSelectedListener true
             }
             else -> false

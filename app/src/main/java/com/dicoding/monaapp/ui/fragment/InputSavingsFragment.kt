@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dicoding.monaapp.data.Category
+import com.dicoding.monaapp.data.models.SavingRequest
 import com.dicoding.monaapp.data.models.TransactionRequest
+import com.dicoding.monaapp.data.response.SavingResponse
 import com.dicoding.monaapp.data.retrofit.ApiConfig
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.databinding.FragmentInputDataBinding
@@ -43,7 +45,6 @@ class InputSavingsFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val dateEditText = binding.dateInput
-        val categoryEditText = binding.categoryInput
         val amountEditText = binding.amountInput
         val titleEditText = binding.titleInput
 
@@ -56,12 +57,9 @@ class InputSavingsFragment : Fragment() {
             val date = dateEditText.text.toString()
             val credentials = firebaseAuth.currentUser?.uid ?: "No User ID"
             val amount = amountEditText.text.toString().toIntOrNull() ?: 0
-            val action = "income"
-            val category = categoryEditText.text.toString()
-            val foodCategory = ""
             val title = titleEditText.text.toString()
 
-            sendUserData(date, credentials, amount, action, category, title, foodCategory)
+            sendUserData(date, credentials, amount, title)
         }
 
         addTextWatchers()
@@ -83,11 +81,11 @@ class InputSavingsFragment : Fragment() {
         datePickerDialog.show()
     }
 
-    private fun sendUserData(date: String, credentials: String, amount: Int, action: String, category: String, title: String, foodCategory: String) {
-        val transactionRequest = TransactionRequest(date, credentials, amount, action, category, title, foodCategory)
-        val service = ApiConfig.getApiService().sendTransaction(transactionRequest)
-        service.enqueue(object : Callback<TransactionResponse> {
-            override fun onResponse(call: Call<TransactionResponse>, response: Response<TransactionResponse>) {
+    private fun sendUserData(date: String, credentials: String, amount: Int, title: String) {
+        val savingRequest = SavingRequest(date, credentials, amount, title)
+        val service = ApiConfig.getApiService().sendSavings(savingRequest)
+        service.enqueue(object : Callback<SavingResponse> {
+            override fun onResponse(call: Call<SavingResponse>, response: Response<SavingResponse>) {
                 if (response.isSuccessful) {
                     showToast("Data sent successfully!")
                 } else {
@@ -95,7 +93,7 @@ class InputSavingsFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SavingResponse>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })

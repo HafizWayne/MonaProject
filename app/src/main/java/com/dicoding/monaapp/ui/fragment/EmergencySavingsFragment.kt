@@ -54,7 +54,7 @@ class EmergencySavingsFragment : Fragment() {
     }
 
     private fun navigateToInputIncomeFragment() {
-        val fragment = InputIncomeFragment()
+        val fragment = InputSavingsFragment()
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)

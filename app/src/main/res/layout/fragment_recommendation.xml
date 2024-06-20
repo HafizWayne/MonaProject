@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:background="@drawable/card_background"
             android:layout_margin="16dp" />
 
         <LinearLayout

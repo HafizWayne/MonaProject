@@ -98,7 +98,7 @@
                     android:text="Rp 1.000.000"
                     android:textColor="#F1FFF3"
 
-                    android:textSize="22sp"/>
+                    android:textSize="20sp"/>
             </LinearLayout>
 
             <View
@@ -163,50 +163,13 @@
                 <TextView
                     android:id="@+id/total_expense"
                     android:textColor="#3299FF"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="-Rp 1.187.400"/>
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/r0279n7lbn5ob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/progressbar_behind"
-            android:paddingHorizontal="1dp"
-            android:layout_marginBottom="17dp"
-            android:layout_marginHorizontal="48dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/ryjpa46147vo"
-                android:layout_width="299dp"
-                android:layout_height="27dp"
-                android:background="@drawable/progressbar_front"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/quota_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="34dp"
-                    android:layout_gravity="center"
-                    android:text="Rp.50,000"
-                    android:textColor="#052224"
-                    android:textSize="13sp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/quota_title"
-            android:textColor="#E3FEF7"
-            android:textSize="15sp"
-            android:layout_marginBottom="19dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="Today’s Quota"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.dicoding.monaapp.ui.fragment
 
 import android.app.DatePickerDialog
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,14 +9,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.dicoding.monaapp.R
 import com.dicoding.monaapp.data.models.TransactionRequest
 import com.dicoding.monaapp.data.retrofit.ApiConfig
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.databinding.FragmentInputIncomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,6 +44,25 @@ class InputIncomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val binding = FragmentInputIncomeBinding.bind(view) // Menggunakan binding untuk mengakses view
+
+        // Tambahkan listener untuk deteksi perubahan tata letak global
+        binding.root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                val rect = Rect()
+                binding.root.getWindowVisibleDisplayFrame(rect)
+                val screenHeight = binding.root.height
+                val keypadHeight = screenHeight - rect.bottom
+
+                val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_nav_home)
+
+                if (keypadHeight > screenHeight * 0.15) { // Keyboard terlihat
+                    bottomNavigationView?.visibility = View.GONE
+                } else { // Keyboard tidak terlihat
+                    bottomNavigationView?.visibility = View.VISIBLE
+                }
+            }
+        })
         firebaseAuth = FirebaseAuth.getInstance()
 
         val dateEditText = binding.dateInput

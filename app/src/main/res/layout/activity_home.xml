@@ -22,6 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        app:itemRippleColor="@null"
+        app:itemBackground="@android:color/transparent"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/teal"
         android:background="@drawable/padding_nav"

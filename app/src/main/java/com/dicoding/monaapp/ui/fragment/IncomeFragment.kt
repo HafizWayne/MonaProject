@@ -32,6 +32,7 @@ class IncomeFragment : Fragment() {
     private lateinit var transactionAdapter: TransactionAdapter
     private val transactionList = mutableListOf<TransactionResponse>()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +45,9 @@ class IncomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
+
+
+
         setupRecyclerView()
         getUserData()
         getUserBalance()

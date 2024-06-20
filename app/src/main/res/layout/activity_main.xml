@@ -48,7 +48,8 @@
                         android:textAlignment="center"
                         android:textColor="#029eb1"
                         android:textSize="70sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:transitionName="shared_element_title"/>
 
                     <TextView
                         android:id="@+id/mona_description"

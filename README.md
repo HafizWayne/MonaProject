@@ -52,3 +52,6 @@ http://35.240.207.177:8080/mona
    "title": "Coba Post"
 }
 ```
+
+### Use the following url for get a request for food recommendation
+http://34.126.112.191:5000/recommend?credentials=?

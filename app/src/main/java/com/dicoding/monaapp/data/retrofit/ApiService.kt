@@ -6,11 +6,7 @@ import com.dicoding.monaapp.data.models.UserRequest
 import com.dicoding.monaapp.data.response.SavingResponse
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.data.response.UserResponse
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -22,6 +18,10 @@ interface ApiService {
     fun sendSavings(
         @Body savingRequest: SavingRequest
     ): Call<SavingResponse>
+    @POST("user")
+    fun sendUsers(
+        @Body userRequest: UserRequest
+    ): Call<UserResponse>
 
     @GET("savings")
     fun getSavings(): Call<List<SavingResponse>>

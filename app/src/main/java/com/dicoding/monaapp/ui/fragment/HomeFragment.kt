@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.monaapp.R
 import com.dicoding.monaapp.adapter.HomeAdapter
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.data.response.UserResponse
@@ -65,7 +64,7 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     user?.let {
-                        Log.d(TAG, "User ID: ${it.id}")
+                        Log.d(TAG, "User ID: ${it.credentials}")
                         binding.userName.text = "Hi, ${it.nama}"
                         getTransactions(userId)
                     } ?: run {
@@ -133,15 +132,15 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     user?.let {
-                        Log.d(TAG, "User ID: ${it.id}")
+                        Log.d(TAG, "User ID: ${it.credentials}")
                         Log.d(TAG, "Total Balance: ${it.totalBalance}")
                         Log.d(TAG, "Total Expense: ${it.totalExpense}")
                         val localeID = Locale("in", "ID")
                         val formattedAmountExpense = NumberFormat.getNumberInstance(localeID).format(it.totalExpense)
                         val formattedAmountIncome = NumberFormat.getNumberInstance(localeID).format(it.totalBalance)
 
-                        binding.totalExpense.text = "-Rp. $formattedAmountExpense"
-                        binding.totalBalance.text = "Rp. $formattedAmountIncome"
+                        binding.totalExpense.text = "-Rp $formattedAmountExpense"
+                        binding.totalBalance.text = "Rp $formattedAmountIncome"
                     } ?: run {
                         showToast("User data not found")
                     }

@@ -56,6 +56,8 @@
                     android:background="@drawable/cr18bd4e3fef7"
                     android:padding="10dp"
                     android:inputType="none"
+                    android:paddingStart="18dp"
+                    android:textColor="@color/black"
                     android:focusable="false"
                     android:layout_marginBottom="34dp"
                     android:layout_marginHorizontal="55dp"
@@ -78,8 +80,9 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/cr18bd4e3fef7"
                     android:paddingVertical="13dp"
-                    android:paddingHorizontal="18dp"
+                    android:paddingHorizontal="10dp"
                     android:layout_marginBottom="34dp"
+                    android:textColor="@color/black"
                     android:layout_marginHorizontal="55dp"/>
 
                 <Spinner
@@ -110,9 +113,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/cr18bd4e3fef7"
                     android:paddingVertical="14dp"
-                    android:paddingHorizontal="10dp"
+                    android:paddingHorizontal="18dp"
+                    android:inputType="number"
                     android:layout_marginBottom="35dp"
                     android:layout_marginHorizontal="54dp"
+                    android:textColor="@color/black"
                     android:orientation="vertical">
                 </EditText>
 
@@ -133,9 +138,10 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/cr18bd4e3fef7"
                     android:paddingVertical="14dp"
-                    android:paddingHorizontal="11dp"
+                    android:paddingHorizontal="18dp"
                     android:layout_marginBottom="25dp"
-                    android:inputType="text"
+
+                    android:textColor="@color/black"
                     android:layout_marginHorizontal="55dp"
                     android:orientation="vertical">
                 </EditText>

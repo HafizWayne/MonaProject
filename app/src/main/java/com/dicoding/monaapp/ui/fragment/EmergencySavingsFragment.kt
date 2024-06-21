@@ -1,7 +1,7 @@
 package com.dicoding.monaapp.ui.fragment
 
+import SavingsAdapter
 import TransactionAdapter
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,10 +13,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.monaapp.R
+import com.dicoding.monaapp.data.response.SavingResponse
 import com.dicoding.monaapp.data.response.TransactionResponse
 import com.dicoding.monaapp.data.response.UserResponse
 import com.dicoding.monaapp.data.retrofit.ApiConfig
-import com.dicoding.monaapp.databinding.FragmentCategoriesBinding
+import com.dicoding.monaapp.databinding.FragmentEmergencySavingsBinding
 import com.dicoding.monaapp.databinding.FragmentIncomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
@@ -28,17 +29,17 @@ import java.util.Locale
 private const val TAG = "IncomeFragment"
 
 class EmergencySavingsFragment : Fragment() {
-    private var _binding: FragmentIncomeBinding? = null
+    private var _binding: FragmentEmergencySavingsBinding? = null
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var transactionAdapter: TransactionAdapter
-    private val transactionList = mutableListOf<TransactionResponse>()
+    private lateinit var transactionAdapter: SavingsAdapter
+    private val transactionList = mutableListOf<SavingResponse>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentIncomeBinding.inflate(inflater, container, false)
+        _binding = FragmentEmergencySavingsBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -84,7 +85,7 @@ class EmergencySavingsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        transactionAdapter = TransactionAdapter(transactionList)
+        transactionAdapter = SavingsAdapter(transactionList)
         binding.rvTransactions.apply {
             adapter = transactionAdapter
             layoutManager = LinearLayoutManager(context)
@@ -95,18 +96,18 @@ class EmergencySavingsFragment : Fragment() {
         val userId = firebaseAuth.currentUser?.uid ?: return showToast("No user logged in")
         Log.d(TAG, "User ID: $userId")
 
-        val service = ApiConfig.getApiService().getTransactions()
-        service.enqueue(object : Callback<List<TransactionResponse>> {
+        val service = ApiConfig.getApiService().getSavings()
+        service.enqueue(object : Callback<List<SavingResponse>> {
             override fun onResponse(
-                call: Call<List<TransactionResponse>>,
-                response: Response<List<TransactionResponse>>
+                call: Call<List<SavingResponse>>,
+                response: Response<List<SavingResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val transactions = response.body()
-                    transactions?.let {
+                    val savings = response.body()
+                    savings?.let {
                         Log.d(TAG, "Received ${it.size} transactions")
                         val userTransactions = it.filter { transaction ->
-                            transaction.credentials == userId && transaction.action == "income"
+                            transaction.credentials == userId
                         }
                         Log.d(TAG, "Filtered transactions count: ${userTransactions.size}")
 
@@ -126,7 +127,7 @@ class EmergencySavingsFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<List<TransactionResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<SavingResponse>>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
                 showToast("Failed to retrieve data")
             }
@@ -143,15 +144,17 @@ class EmergencySavingsFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     user?.let {
-                        Log.d(TAG, "User ID: ${it.id}")
+                        Log.d(TAG, "User ID: ${it.credentials}")
                         Log.d(TAG, "Total Balance: ${it.totalBalance}")
                         Log.d(TAG, "Total Expense: ${it.totalExpense}")
                         val localeID = Locale("in", "ID")
                         val formattedAmountExpense = NumberFormat.getNumberInstance(localeID).format(it.totalExpense)
                         val formattedAmountIncome = NumberFormat.getNumberInstance(localeID).format(it.totalBalance)
+                        val formattedAmountSavings = NumberFormat.getNumberInstance(localeID).format(it.totalEmergency)
 
-                        binding.totalExpense.text = "-Rp. $formattedAmountExpense"
-                        binding.totalBalance.text = "Rp. $formattedAmountIncome"
+                        binding.totalExpense.text = "-Rp $formattedAmountExpense"
+                        binding.totalBalance.text = "Rp $formattedAmountIncome"
+                        binding.totalSavings.text = "Rp $formattedAmountSavings"
                     } ?: run {
                         showToast("User data not found")
                     }

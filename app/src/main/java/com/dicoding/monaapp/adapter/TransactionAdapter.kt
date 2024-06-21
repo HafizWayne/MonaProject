@@ -19,7 +19,8 @@ class TransactionAdapter(private val transactionList: List<TransactionResponse>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_transaction, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_transaction, parent, false)
         return TransactionViewHolder(view)
     }
 
@@ -36,8 +37,16 @@ class TransactionAdapter(private val transactionList: List<TransactionResponse>)
         // Format the amount with thousand separators using Indonesian locale
         val localeID = Locale("in", "ID")
         val formattedAmount = NumberFormat.getNumberInstance(localeID).format(transaction.amount)
-        holder.minusPrice2.text = "-Rp $formattedAmount"
+        if (transaction.action == "expense") {
+            holder.minusPrice2.text = "-Rp $formattedAmount"
+            holder.minusPrice2.setTextColor(holder.itemView.context.getColor(R.color.white))
+        } else {
+            holder.minusPrice2.text = "Rp $formattedAmount"
+            holder.minusPrice2.setTextColor(holder.itemView.context.getColor(R.color.white))
+        }
     }
 
+
     override fun getItemCount(): Int = transactionList.size
+
 }

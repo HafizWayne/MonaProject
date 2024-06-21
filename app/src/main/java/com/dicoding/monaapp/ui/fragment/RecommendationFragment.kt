@@ -1,8 +1,10 @@
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,6 +75,15 @@ class RecommendationFragment : Fragment() {
                     Log.e(TAG, "An error occurred: $status")
                 }
             })
+            // Mengubah warna teks setelah view sudah siap
+            autocompleteFragment.view?.post {
+                val autocompleteTextView = autocompleteFragment.view?.findViewById<EditText>(
+                    com.google.android.libraries.places.R.id.places_autocomplete_search_input
+                )
+                autocompleteTextView?.setTextColor(Color.WHITE) // Ganti dengan warna yang diinginkan
+                autocompleteTextView?.setHintTextColor(Color.WHITE) // Ganti dengan warna yang diinginkan
+
+    }
         } else {
             Log.e(TAG, "AutocompleteSupportFragment is null")
         }
